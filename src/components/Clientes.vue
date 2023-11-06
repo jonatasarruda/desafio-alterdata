@@ -1,60 +1,74 @@
 <template>
     <v-container>
-
-    <v-card width="400" class="mx-auto mt-10">
-        <v-card-title>
-            <h1 class="display-1 mx-auto">Clientes</h1>
-        </v-card-title>
-        <v-card-text>    
-        <v-form>        
-                <v-card-actions>
-           
-                </v-card-actions>
-            </v-form>
-        </v-card-text>
-        <v-spacer></v-spacer>
-        
-    </v-card>
-</v-container>
+        <h1 class="display-1 mx-auto">Clientes</h1>
+        <v-data-table
+                :headers="headers"
+                :items="produtos"
+                item-value="name"
+                class="elevation-1"
+            >
+                <template v-slot:item="{ produto }">
+                <tr>
+                    <td>{{ produto.nome }}</td>
+                    <td>{{ produto.valor }}</td>
+                    <td>{{ produto.quantidadeEstoque }}</td>
+                    <td>{{ produto.observacao }}</td>
+                    <td>{{ produto.dataCadastro }}</td>
+                </tr>
+                </template>
+            </v-data-table>
+            <li v-for="cliente in clientes" v-bind:key="cliente">
+                {{ cliente }}
+            </li>
+    </v-container>
     
-  </template>
+</template>
   
   <script>
   import axios from 'axios'
+
   
   export default {
     name: 'App',
 
     data: () => ({
-        return: {
-            login: {
-                email: '',
-                senha: ''
-            }
-            } 
-        }),
+        
+            clientes: []
+        
+    }),
 
     components: {
-        
+
     },
     methods: {
 
-        async fazLogin(e){
-        e.preventDefault();
+    async getClientes(){
+    
+    let self = this;
 
-        await axios.post ('http://localhost:3400/login', {
-            email: this.email,
-            senha: this.senha
-        })
-        .then(function(response){
-                let token = response.data.token
-                console.log(token) 
-            })
-        .catch(function(error){
-                console.log(error.response.data.mensagem)
-        })
-        },
-    },
+    await axios.get('http://localhost:3400/clientes',{
+        headers:{
+        Authorization: '69820f612f45ed9f9248f4bd2fc2421d'
+        }
     }
+    )
+    .then(function(response){
+
+            self.clientes = response.data   
+            console.log(self.clientes)
+        })
+    .catch(function(error){
+            console.log(error)
+    })
+    },
+
+    },
+    mounted: function () {
+      this.getClientes()
+    },
+    
+    }
+
+
   </script>
   

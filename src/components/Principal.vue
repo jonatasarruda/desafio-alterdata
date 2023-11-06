@@ -55,6 +55,11 @@
         })
         },
     },
+    mounted() {
+
+        this.$cookies.set("framework","vuejs")
+        this.$cookies.set("framework",this.token)
+        },
     }
   </script>
   

@@ -1,9 +1,9 @@
 <template>
 <v-container>
-
 <v-card width="400" class="mx-auto mt-10">
     <v-card-title>
         <h1 class="display-1 mx-auto">Acesso</h1>
+        <!-- <h1 class="display-1 mx-auto">{{token}}</h1> -->
     </v-card-title>
     <v-card-text>
         <v-form @submit.prevent="fazLogin">
@@ -33,6 +33,10 @@
 
 <script>
 import axios from 'axios'
+// import VueCookies from 'vue-cookies'
+
+// let token = this.token
+// export {token}
 
 
 export default {
@@ -53,21 +57,35 @@ methods: {
         email: this.email,
         senha: this.senha
     })
-    .then(function(response){
+    .then(response => {
 
             let token = response.data.token
             console.log(token)
             self.$router.push('/principal')
-        })
-    .catch(function(error){
-            console.log(error)
+            return token
     })
-    },
+    .then(token => {
+        this.$cookies.set("framework", token)
+    })
+    .catch(e => {
+            console.log(e)
+    })
+},
+},
+mounted() {
+
+    this.$cookies.set("framework","vuejs")
+    this.$cookies.set("framework",this.token)
 },
 
 data: () => ({
-    email: '',
-    senha: '',
-    }),
+    // email: '',
+    // senha: '',
+    // token: this.token,
+    
+    return: {
+        // token: this.token
+    }
+}),
 }
 </script>
