@@ -1,70 +1,70 @@
 <template>
     <v-container>
         <h1 class="display-1 mx-auto">Produtos</h1>
-        <span>{{ token }}</span>
         <v-data-table
-                :headers="headers"
-                :items="prod"
-                item-value="name"
-                class="elevation-1"
-            >
-                <template v-slot:item="{ produto }">
-                <tr>
-                    <td>{{ produto.nome }}</td>
-                    <td>{{ produto.valor }}</td>
-                    <td>{{ produto.quantidadeEstoque }}</td>
-                    <td>{{ produto.observacao }}</td>
-                    <td>{{ produto.dataCadastro }}</td>
-                </tr>
-                </template>
-            </v-data-table>
-            <li v-for="produto in produtos" v-bind:key="produto">
-                {{ produto }}
-            </li>
-    </v-container>
-    
+            v-model="selected"
+            :headers="headers"
+            :items="produtos"
+            item-key="id"
+            :single-select=true
+            show-select
+            @click="mostraSelecionado"
+        >
+        <template v-slot:top>
+        </template>
+    </v-data-table>
+<NovoProduto/>
+</v-container>
 </template>
   
 <script>
 import axios from 'axios'
+import NovoProduto from './NovoProduto.vue'
 // import { token } from './Login.vue';
 
 export default {
 name: 'App',
 
 data: () => ({
-    
-        produtos: []
-    
+    dialog: false,
+    headers: [
+        //   { title: 'Produtos', align: 'start', value: 'nome'},
+          { text: 'Id', align: 'end', value: 'id' },
+          { text: 'Nome', align: 'end', value: 'nome' },
+          { text: 'Valor', align: 'end', value: 'valor' },
+          { text: 'Quantidade em estoque',align: 'end', value: 'quantidadeEstoque' },
+          { text: 'Observação', align: 'end', value: 'observacao' }
+        ],
+        produtos: [],
+    return:{
+        selected: []
+    }
 }),
-
-
 components: {
-
+    NovoProduto
 },
 methods: {
 
-async getProdutos(){
+    async getProdutos(){
 
-let token = this.$cookies.get("framework");
-let self = this;
+    let token = this.$cookies.get("framework");
+    let self = this;
 
-await axios.get('http://localhost:3400/produtos',{
-    headers:{
-    Authorization: token
+    await axios.get('http://localhost:3400/produtos',{
+        headers:{
+        Authorization: token
+        }
     }
-}
-)
-.then(function(response){
+    )
+    .then(function(response){
 
-        console.log(JSON.stringify(response.data))
-        self.produtos = response.data   
-        console.log(self.produtos)
+            console.log(JSON.stringify(response.data))
+            self.produtos = response.data   
+        })
+    .catch(function(error){
+            console.log(error)
     })
-.catch(function(error){
-        console.log(error)
-})
-},
+    },
 
 },
 mounted: function () {

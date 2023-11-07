@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
-import Routes from './routes'
+import Routes from './routes/routes'
 import VueCookies from 'vue-cookies'
 
 Vue.use(VueRouter)
