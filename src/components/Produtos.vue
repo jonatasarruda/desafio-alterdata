@@ -8,19 +8,27 @@
             item-key="id"
             :single-select=true
             show-select
-            @click="mostraSelecionado"
+            @input="mostraSelecionado"
         >
         <template v-slot:top>
         </template>
     </v-data-table>
 <NovoProduto/>
+<EditarProduto/>
+<v-btn
+     @click="dialog=true; excluirProduto()"
+     color="red"
+   >
+   Exluir
+   </v-btn>
 </v-container>
 </template>
   
 <script>
 import axios from 'axios'
 import NovoProduto from './NovoProduto.vue'
-// import { token } from './Login.vue';
+import EditarProduto from './EditarProduto.vue';
+// import DeletarProduto from './DeletarProduto.vue';
 
 export default {
 name: 'App',
@@ -28,7 +36,6 @@ name: 'App',
 data: () => ({
     dialog: false,
     headers: [
-        //   { title: 'Produtos', align: 'start', value: 'nome'},
           { text: 'Id', align: 'end', value: 'id' },
           { text: 'Nome', align: 'end', value: 'nome' },
           { text: 'Valor', align: 'end', value: 'valor' },
@@ -36,17 +43,19 @@ data: () => ({
           { text: 'Observação', align: 'end', value: 'observacao' }
         ],
         produtos: [],
+        selected: [],
+        
     return:{
-        selected: []
+        selected: [],
     }
 }),
 components: {
-    NovoProduto
+    NovoProduto,
+    EditarProduto,
 },
 methods: {
 
     async getProdutos(){
-
     let token = this.$cookies.get("framework");
     let self = this;
 
@@ -65,12 +74,29 @@ methods: {
             console.log(error)
     })
     },
+    mostraSelecionado() {
+        let produtoSelecionado = this.selected.map(value => value.id)
+        console.log(produtoSelecionado) 
+        this.$cookies.set("produtoSelecionado", produtoSelecionado)
+        return produtoSelecionado
+    },
+    async excluirProduto (){
+
+        let token = this.$cookies.get("framework");
+        let produtoSelecionado = this.$cookies.get("produtoSelecionado");
+        
+        console.log("deletando...", produtoSelecionado)
+        await axios.delete(`http://localhost:3400/produtos/${produtoSelecionado}`,{
+        headers:{
+        Authorization: token
+        }
+    })
+    }
 
 },
 mounted: function () {
     this.getProdutos()
 },
-
 }
 
 

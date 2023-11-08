@@ -7,16 +7,17 @@
        >
    <template v-slot:activator="{ props }">
    <v-btn
-     @click="dialog=true"
+     @click="dialog=true; getProdutos()"
      color="primary"
      v-bind="props"
    >
-     Novo produto
+     Editar
    </v-btn>
  </template>
 <v-card>
    <v-card-title>
-     <span class="text-h5">Novo Produto</span>
+     <span class="text-h5">Editar Produto</span>
+     <!-- <span class="text-h5">{{produtoSelecionado}}</span> -->
    </v-card-title>
    <v-card-text>
      <v-container>
@@ -29,6 +30,7 @@
            <v-text-field
              label="Código do produto"
              required
+             v-model="produto.id"
            ></v-text-field>
          </v-col>
          <v-col
@@ -40,6 +42,7 @@
              label="Nome do produto"
              hint="descrição do produto"
              required
+             v-model="produto.nome"
            ></v-text-field>
          </v-col>
          <v-col
@@ -52,18 +55,21 @@
              hint="valor de venda do produto"
              persistent-hint
              required
+             v-model="produto.valor"
            ></v-text-field>
          </v-col>
          <v-col cols="12">
            <v-text-field
              label="Quantidade em estoque"
              required
+             v-model="produto.quantidadeEstoque"
            ></v-text-field>
          </v-col>
          <v-col cols="12">
            <v-text-field
              label="Observação"
              type="Observação sobre o produto"
+             v-model="produto.observacao"
            ></v-text-field>
          </v-col>
          <v-col
@@ -86,7 +92,7 @@
      <v-btn
        color="blue-darken-1"
        variant="text"
-       @click="dialog = false"
+       @click="dialog = false; gravarProduto(produto);"
      >
        Gravar
      </v-btn>
@@ -97,14 +103,65 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
-name: 'App',
+  name: 'App',
 
-data: () => ({
-dialog: false,
-}),
+  data: () => ({
+      dialog: false,
+      produto: self.produto
+  }),
 
+  methods: {
+     async getProdutos(){
+
+    let produtoSelecionado = this.$cookies.get("produtoSelecionado");
+    let token = this.$cookies.get("framework");
+    let self = this;
+
+    await axios.get(`http://localhost:3400/produtos/${produtoSelecionado}`,{
+        headers:{
+        Authorization: token
+        }
+    }
+    )
+    .then(function(response){
+
+            console.log(JSON.stringify(response.data))
+            self.produto = response.data
+            console.log(produtoSelecionado)
+            return self.produto
+        })
+    .catch(function(error){
+            console.log(error)
+    })
+    },
+
+    async gravarProduto(produtoEditado){
+
+      let produto = produtoEditado
+      let produtoSelecionado = this.$cookies.get("produtoSelecionado");
+      let token = this.$cookies.get("framework");
+
+      console.log(produto)
+      let edicao = {...produto}
+      console.log(edicao)
+
+      await axios.put(`http://localhost:3400/produtos/${produtoSelecionado}`,
+        edicao,{
+        headers:{
+        Authorization: token
+        },
+      })
+    },
+
+
+
+  },
+  mounted: function(){
+   this.getProdutos() 
+  }
 }
 
 </script>

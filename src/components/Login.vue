@@ -79,8 +79,8 @@ mounted() {
 },
 
 data: () => ({
-    // email: '',
-    // senha: '',
+    email: '',
+    senha: '',
     // token: this.token,
     
     return: {

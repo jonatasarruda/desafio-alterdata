@@ -1,5 +1,5 @@
  <template> 
-         <v-row justify="center">
+        <v-row justify="center">
         <v-dialog
             v-model="dialog"
             persistent
@@ -11,7 +11,7 @@
           color="primary"
           v-bind="props"
         >
-          Novo produto
+          Novo
         </v-btn>
       </template>
   <v-card>
@@ -97,13 +97,18 @@
 </template>
 
 <script>
+import Prod from './Produtos.vue'
 
 export default {
-name: 'App',
+  name: 'App',
 
-data: () => ({
-    dialog: false,
-}),
+  data: () => ({
+      dialog: false,
+  }),
+
+  props:{
+    Prod  
+  }
 
 }
 
