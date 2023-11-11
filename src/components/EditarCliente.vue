@@ -7,7 +7,7 @@
        >
    <template v-slot:activator="{ props }">
    <v-btn
-     @click="dialog=true; getProdutos()"
+     @click="dialog=true; getCliente()"
      color="primary"
      v-bind="props"
    >
@@ -30,7 +30,7 @@
            <v-text-field
              label="Código do produto"
              required
-             v-model="produto.id"
+             v-model="cliente.id"
            ></v-text-field>
          </v-col>
          <v-col
@@ -42,7 +42,7 @@
              label="Nome do produto"
              hint="descrição do produto"
              required
-             v-model="produto.nome"
+             v-model="cliente.nome"
            ></v-text-field>
          </v-col>
          <v-col
@@ -55,21 +55,21 @@
              hint="valor de venda do produto"
              persistent-hint
              required
-             v-model="produto.valor"
+             v-model="cliente.cpfOuCnpj"
            ></v-text-field>
          </v-col>
          <v-col cols="12">
            <v-text-field
              label="Quantidade em estoque"
              required
-             v-model="produto.quantidadeEstoque"
+             v-model="cliente.email"
            ></v-text-field>
          </v-col>
          <v-col cols="12">
            <v-text-field
              label="Observação"
              type="Observação sobre o produto"
-             v-model="produto.observacao"
+             v-model="cliente.telefone"
            ></v-text-field>
          </v-col>
          <v-col
@@ -92,7 +92,7 @@
      <v-btn
        color="blue-darken-1"
        variant="text"
-       @click="dialog = false; gravarProduto(produto);"
+       @click="dialog = false; gravarCliente(cliente);"
      >
        Gravar
      </v-btn>
@@ -110,17 +110,17 @@ export default {
 
   data: () => ({
       dialog: false,
-      produto: self.produto
+      cliente: self.cliente
   }),
 
   methods: {
-     async getProdutos(){
+     async getCliente(){
 
-    let produtoSelecionado = this.$cookies.get("produtoSelecionado");
+    let clienteSelecionado = this.$cookies.get("clienteSelecionado");
     let token = this.$cookies.get("framework");
     let self = this;
 
-    await axios.get(`http://localhost:3400/produtos/${produtoSelecionado}`,{
+    await axios.get(`http://localhost:3400/clientes/${clienteSelecionado}`,{
         headers:{
         Authorization: token
         }
@@ -129,26 +129,26 @@ export default {
     .then(function(response){
 
             console.log(JSON.stringify(response.data))
-            self.produto = response.data
-            console.log(produtoSelecionado)
-            return self.produto
+            self.cliente = response.data
+            console.log(clienteSelecionado)
+            return self.cliente
         })
     .catch(function(error){
             console.log(error)
     })
     },
 
-    async gravarProduto(produtoEditado){
+    async gravarCliente(clienteEditado){
 
-      let produto = produtoEditado
-      let produtoSelecionado = this.$cookies.get("produtoSelecionado");
+      let cliente = clienteEditado
+      let clienteSelecionado = this.$cookies.get("clienteSelecionado");
       let token = this.$cookies.get("framework");
 
-      console.log(produto)
-      let edicao = {...produto}
+      console.log(cliente)
+      let edicao = {...cliente}
       console.log(edicao)
 
-      await axios.put(`http://localhost:3400/produtos/${produtoSelecionado}`,
+      await axios.put(`http://localhost:3400/clientes/${clienteSelecionado}`,
         edicao,{
         headers:{
         Authorization: token
@@ -163,7 +163,7 @@ export default {
 
   },
   mounted: function(){
-   this.getProdutos() 
+   this.getCliente() 
   }
 }
 

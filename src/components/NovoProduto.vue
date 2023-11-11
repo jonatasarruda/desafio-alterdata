@@ -116,7 +116,7 @@ export default {
           valor: 0,
           quantidadeEstoque: 0,
           observacao: '',
-          dataCadastro: Date.now(),
+          dataCadastro: new Date().toISOString(),
         },
       return: {
         produto:{
@@ -144,6 +144,9 @@ export default {
       .then((res) => {
         console.log ("Produto cadastrado!", res.data)
       })
+      .then(
+        window.location.reload()
+      )
       .catch((error) => {
         console.log(error.data)
       })
