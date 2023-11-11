@@ -29,7 +29,7 @@
 
   
   export default {
-    name: 'App',
+    name: 'Clientes',
 
     data: () => ({
         
@@ -43,12 +43,14 @@
     methods: {
 
     async getClientes(){
-    
+
+
+    let token = this.$cookies.get("framework");
     let self = this;
 
     await axios.get('http://localhost:3400/clientes',{
         headers:{
-        Authorization: '69820f612f45ed9f9248f4bd2fc2421d'
+        Authorization: token
         }
     }
     )

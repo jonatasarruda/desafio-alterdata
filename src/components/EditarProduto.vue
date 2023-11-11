@@ -3,7 +3,7 @@
    <v-dialog
        v-model="dialog"
        persistent
-       width="1024"
+       w  th="1024"
        >
    <template v-slot:activator="{ props }">
    <v-btn
@@ -106,7 +106,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'App',
+  name: 'edicaoProduto',
 
   data: () => ({
       dialog: false,

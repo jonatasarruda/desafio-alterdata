@@ -23,15 +23,17 @@
   import axios from 'axios'
   
   export default {
-    name: 'App',
+    name: 'Principal',
 
     data: () => ({
         return: {
             login: {
                 email: '',
                 senha: ''
-            }
-            } 
+            },
+            mostrarBarra: false, 
+            },
+        mostrarBarra: false, 
         }),
 
     components: {

@@ -4,47 +4,52 @@
         app
         color="primary"
         dark
+        v-show="exibirNav"
         >
-        <router-link
-        to="/principal"
-        custom
-        v-slot="{ navigate }"
-        >
-      <button
-        @click="navigate"
-        role="link"
-      >
-        Dashboard
-        </button>
-        
-      </router-link>
-      <div class="d-flex align-center">
-      <router-link
-        to="/produtos"
-        custom
-        v-slot="{ navigate }"
-        >
-      <button
-        @click="navigate"
-        role="link"
-      >
-        Produtos
-        </button>
-      </router-link>
+      <div class=".d-inline-flex pa-3 align-center">
+          <router-link
+          to="/principal"
+          custom
+          v-slot="{ navigate }"
+          >
+          <button
+              @click="navigate"
+              role="link"
+              >
+              Dashboard
+          </button>
+
+          </router-link> 
+        </div>
+        <div class=".d-inline-flex pa-3 align-center">
+          <router-link
+              to="/produtos"
+              custom
+              v-slot="{ navigate }"
+              >
+          <button
+              @click="navigate"
+              role="link"
+              >
+              Produtos
+          </button>
+          </router-link>
+        </div>
+          <div class=".d-inline-flex pa-3 align-center">
+          <router-link
+              to="/clientes"
+              custom
+              v-slot="{ navigate }"
+              >
+          <button
+              @click="navigate"
+              role="link"
+              >
+              Clientes
+          </button>
+          </router-link>
+          <v-spacer></v-spacer>
       </div>
-      <router-link
-        to="/clientes"
-        custom
-        v-slot="{ navigate }"
-        >
-      <button
-        @click="navigate"
-        role="link"
-      >
-        Clientes
-        </button>
-      </router-link>
-      <v-spacer></v-spacer>
     </v-app-bar>
     
     <v-main>
@@ -60,7 +65,7 @@ export default {
   name: 'App',
 
   components: {
-    RouterView
+    RouterView,
 },
 
   data: () => ({
@@ -70,6 +75,16 @@ export default {
         { title: 'Click Me' },
         { title: 'Click Me 2' },
       ],
+
   }),
+  computed:{
+    exibirNav(){
+      if(this.$route.path === '/'){
+        return false 
+      } else {
+        return true
+      }
+    }
+  }
 }
 </script>

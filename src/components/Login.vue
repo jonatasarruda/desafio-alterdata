@@ -40,7 +40,7 @@ import axios from 'axios'
 
 
 export default {
-    name: 'App',
+    name: 'Login',
 
 components: {
     

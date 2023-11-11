@@ -100,7 +100,7 @@
 import Prod from './Produtos.vue'
 
 export default {
-  name: 'App',
+  name: 'novoProduto',
 
   data: () => ({
       dialog: false,

@@ -13,14 +13,22 @@
         <template v-slot:top>
         </template>
     </v-data-table>
-<NovoProduto/>
-<EditarProduto/>
-<v-btn
-     @click="dialog=true; excluirProduto()"
-     color="red"
-   >
-   Exluir
-   </v-btn>
+<div class="d-flex">
+    <div class="d-flex pa-3 ma-3">
+        <NovoProduto/>
+    </div>
+    <div class="d-flex pa-3 ma-3">
+        <EditarProduto/>
+    </div>
+    <div class="d-flex pa-3">
+        <v-btn
+            @click="dialog=true; excluirProduto()"
+            color="red"
+        >
+        Exluir
+        </v-btn>
+    </div>
+</div>  
 </v-container>
 </template>
   
@@ -31,7 +39,7 @@ import EditarProduto from './EditarProduto.vue';
 // import DeletarProduto from './DeletarProduto.vue';
 
 export default {
-name: 'App',
+name: 'Produtos',
 
 data: () => ({
     dialog: false,
