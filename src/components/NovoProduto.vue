@@ -29,6 +29,7 @@
                 <v-text-field
                   label="Código do produto"
                   required
+                  v-model="produto.id"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -40,6 +41,7 @@
                   label="Nome do produto"
                   hint="descrição do produto"
                   required
+                  v-model="produto.nome"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -52,18 +54,21 @@
                   hint="valor de venda do produto"
                   persistent-hint
                   required
+                  v-model="produto.valor"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Quantidade em estoque"
                   required
+                  v-model="produto.quantidadeEstoque"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Observação"
                   type="Observação sobre o produto"
+                  v-model="produto.observacao"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -86,7 +91,7 @@
           <v-btn
             color="blue-darken-1"
             variant="text"
-            @click="dialog = false"
+            @click="dialog = false; gravarProduto();"
           >
             Gravar
           </v-btn>
@@ -98,13 +103,54 @@
 
 <script>
 import Prod from './Produtos.vue'
+import axios from 'axios';
 
 export default {
   name: 'novoProduto',
 
   data: () => ({
       dialog: false,
+      produto:{
+          id: '',
+          nome: '',
+          valor: 0,
+          quantidadeEstoque: 0,
+          observacao: '',
+          dataCadastro: Date.now(),
+        },
+      return: {
+        produto:{
+          id: '',
+          nome: '',
+          valor: 0,
+          quantidadeEstoque: 0,
+          observacao: '',
+          dataCadastro: Date.now(),
+        }
+      }
   }),
+
+  methods:{
+    
+    async gravarProduto(){
+
+      let token = this.$cookies.get("framework");
+      
+      await axios.post('http://localhost:3400/produtos', this.produto, {
+        headers:{
+          Authorization: token
+        }
+      })
+      .then((res) => {
+        console.log ("Produto cadastrado!", res.data)
+      })
+      .catch((error) => {
+        console.log(error.data)
+      })
+
+    }
+
+  },
 
   props:{
     Prod  

@@ -61,6 +61,7 @@
 <script>
 import { RouterView } from 'vue-router';
 
+
 export default {
   name: 'App',
 
@@ -69,12 +70,6 @@ export default {
 },
 
   data: () => ({
-    items: [
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me' },
-        { title: 'Click Me 2' },
-      ],
 
   }),
   computed:{
@@ -85,6 +80,7 @@ export default {
         return true
       }
     }
-  }
+  },
 }
+
 </script>

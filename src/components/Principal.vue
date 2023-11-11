@@ -27,13 +27,7 @@
 
     data: () => ({
         return: {
-            login: {
-                email: '',
-                senha: ''
             },
-            mostrarBarra: false, 
-            },
-        mostrarBarra: false, 
         }),
 
     components: {
@@ -43,6 +37,9 @@
 
         async fazLogin(e){
         e.preventDefault();
+
+        let token = this.$cookies.get("framework");
+        console.log(token)
 
         await axios.post ('http://localhost:3400/login', {
             email: this.email,
@@ -58,9 +55,6 @@
         },
     },
     mounted() {
-
-        this.$cookies.set("framework","vuejs")
-        this.$cookies.set("framework",this.token)
         },
     }
   </script>
