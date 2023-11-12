@@ -1,5 +1,5 @@
 <template>
-<v-container class="flex-row mb-6" align="center">
+<v-container  class="flex-row mb-6" align="center">
         <h1 class="display-1 mx-auto" align="center">Dashboard</h1>
         <v-card class="d-flex flex-row ma-6" >
         <v-card width="1000" class="ma-50">
@@ -52,8 +52,8 @@
 
         </v-card>
     </v-card>
-    <v-card width="1000" class="d-flex flex-row mb-6">
-        <v-card width="1000"  class="ma-10">
+    <v-card class="d-flex flex-row ma-6"  align="center">
+        <v-card width="1000" class="mx-50">
             <v-card-title>
                 <h4 class="mx-50">Quantidade total de produto cadastrados</h4>
             </v-card-title>
@@ -62,7 +62,7 @@
             </v-card-text>
             
         </v-card>
-        <v-card width="1000" class=" ma-10">
+        <v-card width="1000" class="mx-50">
             <v-card-title>
                 <h4 class="mx-50">Quantidade total de clientes cadastrados</h4>
             </v-card-title>
