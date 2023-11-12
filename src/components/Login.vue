@@ -62,6 +62,7 @@ methods: {
             let token = response.data.token
             console.log(token)
             self.$router.push('/principal')
+            this.$cookies.set("framework", token)
             return token
     })
     .then(token => {

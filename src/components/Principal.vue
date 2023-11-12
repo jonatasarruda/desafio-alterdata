@@ -1,4 +1,5 @@
 <template>
+<v-container>
 <v-container  class="flex-row mb-6" align="center">
         <h1 class="display-1 mx-auto" align="center">Dashboard</h1>
         <v-card class="d-flex flex-row ma-6" >
@@ -72,6 +73,7 @@
         </v-card>
     </v-card>
 </v-container>
+</v-container>
  </template>
   
   <script>
@@ -141,10 +143,7 @@ import axios from 'axios';
 
                 produtos.forEach(produtos => {
 
-                    this.top.topProduto.push({
-                        nome: produtos.nome, 
-                        quantidade: produtos.quantidadeEstoque
-                    })
+                    this.top.topProduto.push(produtos.quantidadeEstoque)
                        
                 });
 
@@ -153,7 +152,7 @@ import axios from 'axios';
                 if (this.top.topProduto.length >= 10){
                     for (let i = 0; i < 10; i++) {
                         let produto = this.top.topProduto[i];
-                        this.top.value.push(produto.quantidade)
+                        this.top.value.push(produto)
                     }
                 } else {
                     for (let i = 0; i < this.top.topProduto.length; i++) {
@@ -235,11 +234,11 @@ import axios from 'axios';
 
         },
 
-    mounted: function() {
-        this.topProdutos(),
-        this.produtoZeradoOuNegativo(),
-        this.getTotalProduto(),
-        this.getTotalCliente()
+        mounted: function() {
+         this.topProdutos(),
+         this.produtoZeradoOuNegativo(),
+         this.getTotalProduto(),
+         this.getTotalCliente()
         },
     }
   </script>
