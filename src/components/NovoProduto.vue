@@ -54,14 +54,14 @@
                   hint="valor de venda do produto"
                   persistent-hint
                   required
-                  v-model="produto.valor"
+                  v-model.number="produto.valor"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Quantidade em estoque"
                   required
-                  v-model="produto.quantidadeEstoque"
+                  v-model.number="produto.quantidadeEstoque"
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
