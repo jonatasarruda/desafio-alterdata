@@ -107,8 +107,8 @@ import axios from 'axios';
             autoLineWidth: false,
             topProduto:[],
         },
-        totalClientes: 0,
         totalProdutos: 0,
+        totalClientes: 0,
         }),
 
 
@@ -198,11 +198,48 @@ import axios from 'axios';
         })
         },
 
+        async getTotalProduto(){
+
+            let token = this.$cookies.get("framework");
+
+            await axios.get('http://localhost:3400/produtos',{
+            headers:{
+            Authorization: token
+             }
+            })
+            .then(res => {
+            
+                this.totalProdutos = res.data.length
+                return this.totalProdutos.length
+
+             })
+        },
+
+        async getTotalCliente(){
+
+            let token = this.$cookies.get("framework");
+
+            await axios.get('http://localhost:3400/clientes',{
+            headers:{
+            Authorization: token
+            }
+            })
+            .then(res => {
+
+                this.totalClientes = res.data.length
+                return this.totalClientes.length
+
+            })
+            }
+        
+
         },
 
     mounted: function() {
         this.topProdutos(),
-        this.produtoZeradoOuNegativo()
+        this.produtoZeradoOuNegativo(),
+        this.getTotalProduto(),
+        this.getTotalCliente()
         },
     }
   </script>
