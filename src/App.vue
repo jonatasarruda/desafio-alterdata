@@ -54,6 +54,8 @@
       <v-switch
               v-model="$vuetify.theme.dark"
               label="Modo Escuro"
+              color="indigo"
+              inset
               >
       </v-switch>
     </v-app-bar>
