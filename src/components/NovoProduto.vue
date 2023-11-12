@@ -30,6 +30,7 @@
                   label="Código do produto"
                   required
                   v-model="produto.id"
+                  :rules="regrasBasicas"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -41,6 +42,7 @@
                   label="Nome do produto"
                   hint="descrição do produto"
                   required
+                  :rules="regrasBasicas"
                   v-model="produto.nome"
                 ></v-text-field>
               </v-col>
@@ -54,6 +56,7 @@
                   hint="valor de venda do produto"
                   persistent-hint
                   required
+                  :rules="regrasBasicas"
                   v-model.number="produto.valor"
                 ></v-text-field>
               </v-col>
@@ -61,6 +64,7 @@
                 <v-text-field
                   label="Quantidade em estoque"
                   required
+                  :rules="regrasBasicas"
                   v-model.number="produto.quantidadeEstoque"
                 ></v-text-field>
               </v-col>
@@ -91,7 +95,7 @@
           <v-btn
             color="blue-darken-1"
             variant="text"
-            @click="dialog = false; gravarProduto();"
+            @click="dialog = false; gravarProduto()"
           >
             Gravar
           </v-btn>
@@ -118,6 +122,9 @@ export default {
           observacao: '',
           dataCadastro: new Date().toISOString(),
         },
+        regrasBasicas: [
+            v => !!v || 'Campo é obrigatório' 
+          ],
       return: {
         produto:{
           id: '',
@@ -150,8 +157,10 @@ export default {
       .catch((error) => {
         console.log(error.data)
       })
-
-    }
+    },
+    validate () {
+        this.$refs.form.validate()
+      },
 
   },
 

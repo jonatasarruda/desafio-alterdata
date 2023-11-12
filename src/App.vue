@@ -50,6 +50,12 @@
           </router-link>
           <v-spacer></v-spacer>
       </div>
+      <v-spacer></v-spacer>
+      <v-switch
+              v-model="$vuetify.theme.dark"
+              label="Modo Escuro"
+              >
+      </v-switch>
     </v-app-bar>
     
     <v-main>
@@ -72,6 +78,7 @@ export default {
   data: () => ({
 
   }),
+
   computed:{
     exibirNav(){
       if(this.$route.path === '/'){
